@@ -1,0 +1,263 @@
+<alfresco-config>
+
+	<!-- **** Opciones para creación de nuevos tipos desde la librería de documentos. 
+		**** -->
+	<config evaluator="string-compare" condition="DocumentLibrary">
+		<create-content>
+			<content id="plain-text" mimetype="text/plain" label="PAU"
+				itemid="pau:PAU" icon="folder" />
+			<content id="plain-text" mimetype="text/plain" label="Asiento"
+				itemid="pau:asientoRegistral" icon="text" />
+		</create-content>
+	</config>
+
+	<!-- **** CONFIGURACIÓN DE LOS FORMULARIOS DE TIPOS DE CONTENIDO Y ASPECTOS 
+		**** -->
+	<!-- Tipo PAU -->
+	<!-- Para nodos nuevos -->
+	<config evaluator="model-type" condition="pau:PAU">
+		<forms>
+			<form>
+				<field-visibility>
+					<show id="cm:name" />
+					<show id="cm:title" force="true" />
+					<show id="pau:estado" />
+					<show id="pau:numeroPAU" />
+					<show id="pau:localidadPAU" />
+					<show id="pau:AUIUrbanizador" />
+					<show id="pau:CIFAUI" />
+					<show id="pau:fechaInformePrevio" />
+					<show id="pau:fechaAprobacionPleno" />
+					<show id="pau:fechaInscripcion" />
+					<show id="pau:superficie" />
+					<show id="pau:uso" />
+					<show id="pau:numeroViviendas" />
+				</field-visibility>
+				<appearance>
+					<field id="cm:name" label="Nombre" />
+					<field id="cm:title" label="Denominación" description="Denominación del PAU" />
+
+					<set id="datos1" appearance="bordered-panel" label="Datos"
+						template="/org/alfresco/components/form/2-column-set.ftl" />
+					<field id="pau:numeroPAU" label="Número de PAU" set="datos1" />
+					<field id="pau:superficie" label="Superficie" set="datos1" />
+					<field id="pau:localidadPAU" label="Localidad" set="datos1" />
+					<field id="pau:uso" label="Uso" set="datos1" />
+					<field id="pau:numeroViviendas" label="Número de Viviendas"
+						set="datos1" />
+
+					<set id="AUI" appearance="bordered-panel" label="AUI o Urbanizador"
+						template="/org/alfresco/components/form/2-column-set.ftl" />
+					<field id="pau:AUIUrbanizador" label="AUI o Urbanizador" set="AUI" />
+					<field id="pau:CIFAUI" label="CIF" set="AUI" />
+
+					<set id="fechas" appearance="bordered-panel" label="Fechas"
+						template="/org/alfresco/components/form/3-column-set.ftl" />
+					<field id="pau:fechaInformePrevio" set="fechas" />
+					<field id="pau:fechaAprobacionPleno" set="fechas" />
+					<field id="pau:fechaInscripcion" set="fechas" />
+					<field id="pau:estado" label="Estado" />
+				</appearance>
+			</form>
+		</forms>
+	</config>
+
+	<!-- Tipo PAU -->
+	<!-- Para nodos existentes -->
+	<config evaluator="node-type" condition="pau:PAU">
+		<forms>
+			<form>
+				<field-visibility>
+					<show id="cm:name" />
+					<show id="cm:title" force="true" />
+					<show id="pau:estado" />
+					<show id="pau:numeroPAU" />
+					<show id="pau:localidadPAU" />
+					<show id="pau:AUIUrbanizador" />
+					<show id="pau:CIFAUI" />
+					<show id="pau:fechaInformePrevio" />
+					<show id="pau:fechaAprobacionPleno" />
+					<show id="pau:fechaInscripcion" />
+					<show id="pau:superficie" />
+					<show id="pau:uso" />
+					<show id="pau:numeroViviendas" />
+				</field-visibility>
+				<appearance>
+					<field id="cm:name" label="Nombre" />
+					<field id="cm:title" label="Denominación" description="Denominación del PAU" />
+
+					<set id="datos1" appearance="bordered-panel" label="Datos"
+						template="/org/alfresco/components/form/2-column-set.ftl" />
+					<field id="pau:numeroPAU" label="Número de PAU" set="datos1" />
+					<field id="pau:superficie" label="Superficie" set="datos1" />
+					<field id="pau:localidadPAU" label="Localidad" set="datos1" />
+					<field id="pau:uso" label="Uso" set="datos1" />
+					<field id="pau:numeroViviendas" label="Número de Viviendas"
+						set="datos1" />
+
+					<set id="AUI" appearance="bordered-panel" label="AUI o Urbanizador"
+						template="/org/alfresco/components/form/2-column-set.ftl" />
+					<field id="pau:AUIUrbanizador" label="AUI o Urbanizador" set="AUI" />
+					<field id="pau:CIFAUI" label="CIF" set="AUI" />
+
+					<set id="fechas" appearance="bordered-panel" label="Fechas"
+						template="/org/alfresco/components/form/3-column-set.ftl" />
+					<field id="pau:fechaInformePrevio" set="fechas" />
+					<field id="pau:fechaAprobacionPleno" set="fechas" />
+					<field id="pau:fechaInscripcion" set="fechas" />
+					<field id="pau:estado" label="Estado" />
+				</appearance>
+			</form>
+		</forms>
+	</config>
+
+	<!-- Tipo Asiento Registral -->
+	<!-- Para nodos nuevos -->
+	<config evaluator="model-type" condition="pau:asientoRegistral">
+		<forms>
+			<form>
+				<field-visibility>
+					<show id="cm:name" />
+					<show id="cm:content" />
+					<show id="pau:fechaAsiento" />
+					<show id="pau:tipoAsiento" />
+					<show id="pau:pauAsociadoAsiento" />
+				</field-visibility>
+				<appearance>
+					<field id="cm:name" label="Nombre" />
+					<field id="cm:content" label="Contenido" description="Contenido del asiento" />
+					<set id="datos1" appearance="bordered-panel" label="Datos"
+						template="/org/alfresco/components/form/2-column-set.ftl" />
+					<field id="pau:fechaAsiento" label="Fecha" set="datos1" />
+					<field id="pau:tipoAsiento" label="Tipo de Asiento" set="datos1" />
+					<field id="pau:pauAsociadoAsiento" label="PAU asociado">
+						<control template="/org/alfresco/components/form/controls/association.ftl">
+							<control-param name="startLocation">{doclib}</control-param>
+							<control-param name="compactMode">false</control-param>
+							<control-param name="displayMode">list</control-param>
+						</control>
+					</field>
+				</appearance>
+			</form>
+		</forms>
+	</config>
+
+	<!-- Tipo Asiento Registral -->
+	<!-- Para nodos existentes -->
+	<config evaluator="node-type" condition="pau:asientoRegistral">
+		<forms>
+			<form>
+				<field-visibility>
+					<show id="cm:name" />
+					<show id="cm:content" />
+					<show id="pau:fechaAsiento" />
+					<show id="pau:tipoAsiento" />
+					<show id="pau:pauAsociadoAsiento" />
+				</field-visibility>
+				<appearance>
+					<field id="cm:name" label="Nombre" />
+					<field id="cm:content" label="Contenido" description="Contenido del asiento" />
+					<set id="datos1" appearance="bordered-panel" label="Datos"
+						template="/org/alfresco/components/form/2-column-set.ftl" />
+					<field id="pau:fechaAsiento" label="Fecha" set="datos1" />
+					<field id="pau:tipoAsiento" label="Tipo de Asiento" set="datos1" />
+					<field id="pau:pauAsociadoAsiento" label="PAU asociado">
+						<control template="/org/alfresco/components/form/controls/association.ftl">
+							<control-param name="startLocation">{doclib}</control-param>
+							<control-param name="compactMode">false</control-param>
+							<control-param name="displayMode">list</control-param>
+						</control>
+					</field>
+				</appearance>
+			</form>
+		</forms>
+	</config>
+
+
+	<!-- Formulario para la acción de creación de PAU -->
+	 <config evaluator="string-compare" condition="createPAU_Dialogo_Action">
+         <forms>
+             <form>
+				<field-visibility>
+					<show id="nombrePAU" />
+					<show id="descripcion"/>
+					<show id="numeroPAU" />
+					<show id="localidad" />
+					<show id="superficie" />
+					<show id="uso" />
+					<show id="numeroViviendas" />
+				</field-visibility>
+				<appearance>
+					<field id="nombrePAU" label="Nombre" />
+					<field id="descripcion" label="Denominación" description="Denominación del PAU" />
+
+					<set id="datos1" appearance="bordered-panel" label="Datos"
+						template="/org/alfresco/components/form/2-column-set.ftl" />
+					<field id="numeroPAU" label="Número de PAU" set="datos1" />
+					<field id="superficie" label="Superficie" set="datos1" />
+					<field id="localidad" label="Localidad" set="datos1" />
+					<field id="uso" label="Uso" set="datos1" />
+					<field id="numeroViviendas" label="Número de Viviendas"
+						set="datos1" />
+				</appearance>
+			</form>
+        </forms>
+    </config>
+
+
+	<!-- **** CONFIGURACION DE LAS ACCIONES DE LA LIBRERÍA **** -->
+	<config evaluator="string-compare" condition="DocLibActions">
+		<actions>
+			<!-- Creación de un PAU -->
+			<action id="createPAU" type="javascript" label="actions.pau.createpau">
+				<param name="function">onActionSimpleRepoAction</param>
+<!-- 				<permissions> -->
+<!-- 					<permission allow="true">Write</permission> -->
+<!-- 				</permissions> -->
+				<param name="action">createPAU_Action</param>
+				<param name="successMessage">message.createpau.success</param>
+				<param name="failureMessage">message.createpau.failure</param>
+			</action>
+
+			<!-- Creación de un PAU con diálogo 
+			ver: http://ecmstuff.blogspot.com.es/2012/04/adding-document-library-actions-in.html
+				http://www.slideshare.net/alfresco/alfresco-tech-talk-live-share-extensibility-metadata-and-actions-for-41-->
+			<action id="createPAU_Dialog" type="javascript" label="actions.pau.createpau">
+				<param name="function">onActionFormDialog</param>
+				<param name="itemKind">action</param>
+				<param name="itemId">createPAU_Dialogo_Action</param>
+				<param name="mode">create</param>
+				<param name="destination">{node.nodeRef}</param>
+<!-- 				<param name="formId">createPAU_Form</param> -->
+<!-- 				<permissions> -->
+<!-- 					<permission allow="true">Write</permission> -->
+<!-- 				</permissions> -->
+				<param name="successMessage">message.createpau.success</param>
+				<param name="failureMessage">message.createpau.failure</param>
+			</action>
+
+		</actions>
+		
+		<actionGroups>
+			<actionGroup id="folder-browse">
+				<action index="500" id="createPAU"/>
+				<action index="501" id="createPAU_Dialog"/>
+			</actionGroup>
+		</actionGroups>
+	</config>
+
+
+	<config evaluator="string-compare" condition="DocumentLibrary">
+		<!-- **** CONFIGURACIÓN DE LAS METADATA TEMPLATES **** -->
+		<metadata-templates>
+			<template id="asientosRegistrales">
+				<evaluator>evaluator.doclib.action.asientoRegistralType</evaluator>
+				<line index="10" id="fechaAsiento">{pau_fechaAsiento}</line>
+				<line index="20" id="tipoAsiento">{pau_tipoAsiento}</line>
+				<line index="30" id="content">{cm_content}</line>
+			</template>
+
+		</metadata-templates>
+	</config>
+
+</alfresco-config>

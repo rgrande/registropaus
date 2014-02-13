@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Definition of new Model -->
+<model name="pau:paumodel" xmlns="http://www.alfresco.org/model/dictionary/1.0">
+
+	<!-- Optional meta-data about the model -->
+	<description>Modelo para PAUs</description>
+	<author>Rmoán Grande</author>
+	<version>1.0</version>
+
+	<!-- Imports are required to allow references to definitions in other models -->
+	<imports>
+		<!-- Import Alfresco Dictionary Definitions -->
+		<import uri="http://www.alfresco.org/model/dictionary/1.0"
+			prefix="d" />
+		<!-- Import Alfresco Content Domain Model Definitions -->
+		<import uri="http://www.alfresco.org/model/content/1.0" prefix="cm" />
+		<import uri="http://www.alfresco.org/model/calendar" prefix="ia" />
+	</imports>
+
+	<!-- Introduction of new namespaces defined by this model -->
+	<namespaces>
+		<namespace uri="http://www.pau.com/model/content/1.0"
+			prefix="pau" />
+	</namespaces>
+
+
+	<constraints>
+		<constraint name="pau:tiposDocumentosPAULista" type="LIST">
+			<parameter name="allowedValues">
+				<list>
+					<value>Diligencia</value>
+					<value>Anteproyecto de Urbanización</value>
+					<value>Alternativa técnica</value>
+					<value>Inscripción</value>
+					<value>Carracterísticas generales</value>
+					<value>Datos PAU</value>
+					<value>Alternativa técnica</value>
+					<value>Plica Suscrita</value>
+					<value>Proyecto de Reparcelación</value>
+					<value>Modificaciones Realizadas</value>
+					<value>Obras Urbanización</value>
+				</list>
+			</parameter>
+		</constraint>
+
+
+		<constraint name="pau:origenesDocumentoLista" type="LIST">
+			<parameter name="allowedValues">
+				<list>
+					<value>digital</value>
+					<value>escaneado</value>
+					<value>OCR</value>
+				</list>
+			</parameter>
+		</constraint>
+
+		<constraint name="pau:estadosPAULista" type="LIST">
+			<parameter name="allowedValues">
+				<list>
+					<value>Inicio</value>
+					<value>Inscrito</value>
+					<value>Subsanación</value>
+					<value>Denegado</value>
+				</list>
+			</parameter>
+		</constraint>
+
+		<constraint name="pau:usosPAU" type="LIST">
+			<parameter name="allowedValues">
+				<list>
+					<value>Residencial</value>
+					<value>Industrial</value>
+					<value>Terciario</value>
+					<value>Agricola</value>
+				</list>
+			</parameter>
+		</constraint>
+
+		<constraint name="pau:tiposAsientosLista" type="LIST">
+			<parameter name="allowedValues">
+				<list>
+					<value>Inscripción</value>
+					<value>Nota Marginal</value>
+					<value>Cancelación</value>
+				</list>
+			</parameter>
+		</constraint>
+
+	</constraints>
+
+
+	<!-- Tipos de contenido -->
+	<types>
+		<!-- PAU -->
+		<type name="pau:PAU">
+			<title>Programa de Actuación Urbanística</title>
+			<parent>cm:folder</parent>
+			<properties>
+				<property name="pau:estado">
+					<type>d:text</type>
+					<constraints>
+						<constraint ref="pau:estadosPAULista" />
+					</constraints>
+				</property>
+				<property name="pau:numeroPAU">
+					<type>d:int</type>
+				</property>
+				<property name="pau:localidadPAU">
+					<type>d:text</type>
+				</property>
+				<property name="pau:AUIUrbanizador">
+					<type>d:text</type>
+				</property>
+				<property name="pau:CIFAUI">
+					<type>d:text</type>
+				</property>
+				<property name="pau:fechaInformePrevio">
+					<type>d:date</type>
+				</property>
+				<property name="pau:fechaAprobacionPleno">
+					<type>d:date</type>
+				</property>
+				<property name="pau:fechaInscripcion">
+					<type>d:date</type>
+				</property>
+				<property name="pau:superficie">
+					<type>d:float</type>
+				</property>
+				<property name="pau:uso">
+					<type>d:text</type>
+					<multiple>true</multiple>
+					<constraints>
+						<constraint ref="pau:usosPAU" />
+					</constraints>
+				</property>
+				<property name="pau:numeroViviendas">
+					<type>d:int</type>
+				</property>
+			</properties>
+		</type>
+
+		<!-- Evento PAU -->
+		<type name="pau:eventoPAU">
+			<title>Evento asociado a un PAU</title>
+			<parent>ia:calendarEvent</parent>
+			<associations>
+				<association name="pau:pauAsociadoEvento">
+					<title>PAU asociado al evento</title>
+					<source>
+						<mandatory>true</mandatory>
+						<many>false</many>
+					</source>
+					<target>
+						<class>pau:PAU</class>
+						<mandatory>false</mandatory>
+						<many>false</many>
+					</target>
+				</association>
+			</associations>
+		</type>
+
+		<!-- Asiento Registral -->
+		<type name="pau:asientoRegistral">
+			<title>Asiento Registral</title>
+			<parent>cm:content</parent>
+			<properties>
+				<property name="pau:fechaAsiento">
+					<type>d:date</type>
+				</property>
+				<property name="pau:tipoAsiento">
+					<type>d:text</type>
+					<constraints>
+						<constraint ref="pau:tiposAsientosLista" />
+					</constraints>
+				</property>
+			</properties>
+			<associations>
+				<association name="pau:pauAsociadoAsiento">
+					<title>PAU asociado al evento</title>
+					<source>
+						<mandatory>true</mandatory>
+						<many>false</many>
+					</source>
+					<target>
+						<class>pau:PAU</class>
+						<mandatory>false</mandatory>
+						<many>false</many>
+					</target>
+				</association>
+			</associations>
+		</type>
+
+	</types>
+
+	<!-- Aspectos -->
+	<aspects>
+		<!-- Registro único -->
+		<aspect name="pau:registroUnico">
+			<title>Registro Unico</title>
+			<properties>
+				<property name="pau:fechaRegistro">
+					<type>d:date</type>
+					<mandatory>true</mandatory>
+				</property>
+				<property name="pau:numRegistro">
+					<type>d:text</type>
+					<mandatory>true</mandatory>
+				</property>
+			</properties>
+		</aspect>
+
+		<!-- Publicado DOCM -->
+		<aspect name="pau:publicadoDOCM">
+			<title>Publicado en DOCM</title>
+			<properties>
+				<property name="pau:fechaPublicacion">
+					<type>d:date</type>
+				</property>
+				<property name="pau:numDOCM">
+					<type>d:int</type>
+				</property>
+			</properties>
+		</aspect>
+
+		<!-- Tipo documento PAU -->
+		<aspect name="pau:tipoDocumentoPAU">
+			<title>Tipo de Documento PAU</title>
+			<properties>
+				<property name="pau:tipoDocumento">
+					<type>d:text</type>
+					<multiple>true</multiple>
+					<constraints>
+						<constraint ref="pau:tiposDocumentosPAULista" />
+					</constraints>
+				</property>
+			</properties>
+		</aspect>
+
+		<!-- Origen del documento -->
+		<aspect name="pau:origenDocumento">
+			<title>Origen del documento</title>
+			<properties>
+				<property name="pau:origenDocumento">
+					<type>d:text</type>
+					<multiple>true</multiple>
+					<constraints>
+						<constraint ref="pau:origenesDocumentoLista" />
+					</constraints>
+				</property>
+			</properties>
+		</aspect>
+
+		<!-- Publicado en la web -->
+		<aspect name="pau:publicadoWeb">
+			<title>Publicado en la Web</title>
+			<properties>
+				<property name="pau:fechaFin">
+					<type>d:date</type>
+				</property>
+			</properties>
+		</aspect>
+
+		<!-- Documentos relacionados -->
+		<aspect name="pau:relaciones">
+			<title>Documentos Relacionados</title>
+			<properties>
+				<property name="pau:descRelacion">
+					<type>d:text</type>
+				</property>
+			</properties>
+			<associations>
+				<association name="pau:documentosRelacionados">
+					<title>Documentos relacionados</title>
+					<source>
+						<mandatory>true</mandatory>
+						<many>false</many>
+					</source>
+					<target>
+						<class>cm:content</class>
+						<mandatory>false</mandatory>
+						<many>true</many>
+					</target>
+				</association>
+			</associations>
+		</aspect>
+
+
+	</aspects>
+</model>
+
