@@ -91,6 +91,19 @@
 
 	<!-- Tipos de contenido -->
 	<types>
+		<!-- Carpeta que contiene los tiops PAUs -->
+		<type name="pau:contenedorPAUs">
+			<title>Espacio contenedor de PAUs</title>
+			<parent>cm:folder</parent>
+		</type>
+		
+		<!-- Carpeta que contiene los asientos Registrales -->
+		<type name="pau:contenedorAsientos">
+			<title>Espacio contenedor de Asientos Registrales</title>
+			<parent>cm:folder</parent>
+		</type>
+	
+	
 		<!-- PAU -->
 		<type name="pau:PAU">
 			<title>Programa de Actuación Urbanística</title>
@@ -195,7 +208,7 @@
 	<!-- Aspectos -->
 	<aspects>
 		<!-- Registro único -->
-		<aspect name="pau:registroUnico">
+		<aspect name="pau:registradoUnico">
 			<title>Registro Unico</title>
 			<properties>
 				<property name="pau:fechaRegistro">

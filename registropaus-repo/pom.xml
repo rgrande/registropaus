@@ -83,6 +83,12 @@
 			<version>4.8.1</version>
 			<scope>test</scope>
 		</dependency>
+		<!-- Dependencias de log -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>1.5.11</version>
+		</dependency>
 	</dependencies>
 
 	<!-- This repository is only needed to retrieve Alfresco parent POM. NOTE: 

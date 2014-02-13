@@ -1,11 +1,9 @@
-package es.jccm.alf.fom.model;
+package es.jccm.alf.fom.registropaus_common;
 
 public interface pauModel {
     
-	// Namespace
-	public static final String NAMESPACE_PAU_CONTENT_MODEL  = "http://www.pau.com/model/content/1.0";
-	
 	// Types
+	public static final String NAMESPACE_PAU_CONTENT_MODEL  = "http://www.pau.com/model/content/1.0";
 	public static final String TYPE_PAU_PAU = "PAU";
 	public static final String TYPE_PAU__EVENTOPAU = "eventoPAU";
 	public static final String TYPE_PAU_ASIENTOREGISTRAL = "asientoRegistral";
@@ -17,15 +15,9 @@ public interface pauModel {
     public static final String ASPECT_PAU_ORIGENDOCUMENTO = "origenDocumento";    
     public static final String ASPECT_PAU_PUBLICADOWEB = "publicadoWeb";
     public static final String ASPECT_PAU_RELACIONES = "relaciones";
-	
     
     // Properties
-    public static final String PROP_NAME = "name";
-	public static final String PROP_NUMERO = "numeroPAU";
-	public static final String PROP_LOCALIDAD = "localidadPAU";
-	public static final String PROP_SUPERFICIE = "superficie";
-	public static final String PROP_USO = "uso";
-	public static final String PROP_NUMEROVIVIENDAS = "numeroViviendas";
+//    public static final String PROP_ = "";
     
     // Associations
 //    public static final String ASSN_ = "";
