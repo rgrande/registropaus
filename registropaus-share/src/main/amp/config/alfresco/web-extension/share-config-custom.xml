@@ -1,18 +1,26 @@
 <alfresco-config>
 
-	<!-- **** Opciones para creación de nuevos tipos desde la librería de documentos. 
-		**** -->
+	<!-- 
+	**** 
+	creación de nuevos tipos desde la librería de documentos. 
+	**** 
+	-->
 	<config evaluator="string-compare" condition="DocumentLibrary">
 		<create-content>
 			<content id="plain-text" mimetype="text/plain" label="Registro PAUs"
 				itemid="pau:contenedorPAUs" icon="folder" />
 			<content id="plain-text" mimetype="text/plain" label="Libro de Registro"
 				itemid="pau:contenedorAsientos" icon="folder" />
+			<content id="plain-text" mimetype="text/plain" label="Asiento Registral"
+				itemid="pau:asientoRegistral" icon="folder" />
 		</create-content>
 	</config>
 
-	<!-- **** CONFIGURACIÓN DE LOS FORMULARIOS DE TIPOS DE CONTENIDO Y ASPECTOS 
-		**** -->
+	<!-- 
+	**** 
+	FORMULARIOS DE TIPOS DE CONTENIDO Y ASPECTOS 
+	**** 
+	-->
 	<!-- Tipo PAU -->
 	<!-- Para nodos nuevos -->
 	<config evaluator="model-type" condition="pau:PAU">
@@ -118,7 +126,7 @@
 			<form>
 				<field-visibility>
 					<show id="cm:name" />
-					<show id="pau:textoAsiento" />
+					<show id="cm:content" />
 					<show id="pau:fechaAsiento" />
 					<show id="pau:tipoAsiento" />
 					<show id="pau:pauAsociadoAsiento" />
@@ -181,24 +189,21 @@
 				<field-visibility>
 					<show id="nombrePAU" />
 					<show id="descripcion" />
-					<!-- <show id="numeroPAU" /> <show id="localidad" /> <show id="superficie" 
-						/> <show id="uso" /> <show id="numeroViviendas" /> -->
 				</field-visibility>
 				<appearance>
 					<field id="nombrePAU" label="Nombre" />
 					<field id="descripcion" label="Denominación" description="Denominación del PAU" />
-					<!-- <set id="datos1" appearance="bordered-panel" label="Datos" template="/org/alfresco/components/form/2-column-set.ftl" 
-						/> <field id="numeroPAU" label="Número de PAU" set="datos1" /> <field id="superficie" 
-						label="Superficie" set="datos1" /> <field id="localidad" label="Localidad" 
-						set="datos1" /> <field id="uso" label="Uso" set="datos1" /> <field id="numeroViviendas" 
-						label="Número de Viviendas" set="datos1" /> -->
 				</appearance>
 			</form>
 		</forms>
 	</config>
 
 
-	<!-- **** CONFIGURACION DE LAS ACCIONES DE LA LIBRERÍA **** -->
+	<!-- 
+	**** 
+	ACCIONES DE LA LIBRERÍA 
+	**** 
+	-->
 	<config evaluator="string-compare" condition="DocLibActions">
 		<actions>
 			<!-- Creación de un PAU -->
@@ -239,14 +244,18 @@
 	</config>
 
 
+	<!-- 
+	**** 
+	METADATA TEMPLATES 
+	**** 
+	-->
 	<config evaluator="string-compare" condition="DocumentLibrary">
-		<!-- **** CONFIGURACIÓN DE LAS METADATA TEMPLATES **** -->
 		<metadata-templates>
 			<template id="asientosRegistrales">
-				<evaluator>evaluator.doclib.action.asientoRegistralType</evaluator>
+				<evaluator>evaluator.fom.pau.asientoRegistralType</evaluator>
 				<line index="10" id="fechaAsiento">{pau_fechaAsiento}</line>
 				<line index="20" id="tipoAsiento">{pau_tipoAsiento}</line>
-				<line index="30" id="Texto">{cm_content}</line>
+				<line index="30" id="Texto">{pau_resumenAsiento}</line>
 			</template>
 
 		</metadata-templates>

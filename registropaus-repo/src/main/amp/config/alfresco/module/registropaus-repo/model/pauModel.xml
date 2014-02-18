@@ -177,6 +177,9 @@
 			<title>Asiento Registral</title>
 			<parent>cm:content</parent>
 			<properties>
+				<property name="pau:resumenAsiento">
+					<type>d:text</type>
+				</property>
 				<property name="pau:fechaAsiento">
 					<type>d:date</type>
 				</property>

@@ -18,7 +18,7 @@
 -->
 <beans>
       <!-- Registration of new models -->
-    <bean id="${project.artifactId}_dictionaryBootstrap" parent="dictionaryModelBootstrap" depends-on="dictionaryBootstrap">
+    <bean id="registropaus-repo_dictionaryBootstrap" parent="dictionaryModelBootstrap" depends-on="dictionaryBootstrap">
         <property name="models">
             <list>
                 <value>alfresco/module/${project.artifactId}/model/pauModel.xml</value>
@@ -32,7 +32,9 @@
     </bean>
   
   
-    
+    <!-- 
+    ACTIONS
+     -->
     <!-- Acciones para crear un nodo PAU -->
     <bean id="createPAU_Action" class="es.jccm.alf.fom.action.createPAU" parent="action-executer" >
     	<property name="nodeService">
@@ -46,8 +48,24 @@
     	</property>
     </bean>
     
+    <!-- 
+    BEHAVIOURS
+     -->
+    <bean id="resumenAsiento_Behaviour" class="es.jccm.alf.fom.behavior.resumenAsientoRegistro"
+    		init-method="init">
+    	<property name="nodeService">
+    		<ref bean="NodeService"/>
+    	</property>
+    	<property name="contentService">
+    		<ref bean="ContentService"/>
+    	</property>
+    	<property name="policyComponent">
+    		<ref bean="policyComponent"/>
+    	</property>
+    </bean>
+    
     <!-- Mensajes relacionados con la acción -->
-    <bean id="${project.artifactId}_actionsResourceBundles" parent="actionResourceBundles" >
+    <bean id="registropaus-repo_actionsResourceBundles" parent="actionResourceBundles" >
     	<property name="resourceBundles">
     		<list>
     			<value>alfresco.module.${project.artifactId}.messages.actions</value>

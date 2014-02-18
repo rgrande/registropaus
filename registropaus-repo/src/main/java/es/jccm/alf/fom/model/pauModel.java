@@ -26,6 +26,8 @@ public interface pauModel {
 	public static final String PROP_SUPERFICIE = "superficie";
 	public static final String PROP_USO = "uso";
 	public static final String PROP_NUMEROVIVIENDAS = "numeroViviendas";
+	
+	public static final String PROP_RESUMENASIENTO = "resumenAsiento";
     
     // Associations
 //    public static final String ASSN_ = "";
