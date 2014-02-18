@@ -9,6 +9,8 @@
 		<create-content>
 			<content id="plain-text" mimetype="text/plain" label="Registro PAUs"
 				itemid="pau:contenedorPAUs" icon="folder" />
+			<content id="plain-text" mimetype="text/plain" label="PAU"
+				itemid="pau:PAU" icon="folder" />
 			<content id="plain-text" mimetype="text/plain" label="Libro de Registro"
 				itemid="pau:contenedorAsientos" icon="folder" />
 			<content id="plain-text" mimetype="text/plain" label="Asiento Registral"
@@ -181,7 +183,35 @@
 		</forms>
 	</config>
 
+	<!-- 
+	Formularios de aspectos
+	 -->
+	 <config evaluator="aspect" condition="pau:registradoUnico">
+		<forms>
+			<form>
+				<field-visibility>
+					<show id="pau:fechaRegistro" />
+					<show id="pau:numRegistro" />
+				</field-visibility>
+				<appearance>
+					<set id="registroUnico" appearance="bordered-panel" label="Registro Único"
+						template="/org/alfresco/components/form/2-column-set.ftl" />
+					<field id="pau:numRegistro" label="Numero de Registro" set="registroUnico"/>
+					<field id="pau:fechaRegistro" label="Fecha de Registro" description="Fecha de Registro" set="registroUnico">
+						<control template="/org/alfresco/components/form/controls/date.ftl">
+                  			<control-param name="showTime">false</control-param>
+               			</control>
+					</field>
+				</appearance>
+			</form>
+		</forms>
+	</config>
 
+
+
+	<!-- 
+	Formularios de acciones
+	 -->
 	<!-- Formulario para la acción de creación de PAU -->
 	<config evaluator="string-compare" condition="createPAU_Dialogo_Action">
 		<forms>
@@ -197,7 +227,44 @@
 			</form>
 		</forms>
 	</config>
-
+	
+	<!-- Formulario para la acción de añadir registro único -->
+	<config evaluator="string-compare" condition="addRegistradoUnico_Dialogo_Action">
+		<forms>
+			<form>
+				<field-visibility>
+					<show id="fechaRegistro" />
+					<show id="numRegistro" />
+				</field-visibility>
+				<appearance>
+					<field id="numRegistro" label="Numero de Registro" />
+					<field id="fechaRegistro" label="Fecha de Registro" description="Fecha de Registro" >
+						<control template="/org/alfresco/components/form/controls/date.ftl">
+                  			<control-param name="showTime">false</control-param>
+               			</control>
+					</field>
+				</appearance>
+			</form>
+		</forms>
+	</config>
+	
+	<!-- Formulario para la acción de enviar documento por mail -->
+	<config evaluator="string-compare" condition="sendDocumentByMail_Action">
+		<forms>
+			<form>
+				<field-visibility>
+					<show id="to" />
+					<show id="subject" />
+					<show id="body" />
+				</field-visibility>
+				<appearance>
+					<field id="to" label="Para" />
+					<field id="subject" label="Asunto" />
+					<field id="body" label="Contenido" />
+				</appearance>
+			</form>
+		</forms>
+	</config>
 
 	<!-- 
 	**** 
@@ -225,7 +292,6 @@
 				<param name="itemId">createPAU_Dialogo_Action</param>
 				<param name="mode">create</param>
 				<param name="destination">{node.nodeRef}</param>
-				<!-- <param name="formId">createPAU_Form</param> -->
 				<evaluator>evaluator.fom.pau.contenedorPAUsType</evaluator>
 				<permissions>
 					<permission allow="true">Write</permission>
@@ -233,11 +299,57 @@
 				<param name="successMessage">message.createpau.success</param>
 				<param name="failureMessage">message.createpau.failure</param>
 			</action>
+			
+			<!-- Añadir el aspecto registradoUnico mediante una acción de diálogo -->			
+			<action id="addRegistradoUnico_Dialog" type="javascript" label="actions.pau.add_registradounico">
+				<param name="function">onActionFormDialog</param>
+				<param name="itemKind">action</param>
+				<param name="itemId">addRegistradoUnico_Dialogo_Action</param>
+				<param name="mode">create</param>
+				<param name="destination">{node.nodeRef}</param>
+				<evaluator negate="true">evaluator.fom.pau.registradoUnicoAspecto</evaluator>
+				<evaluator>evaluator.fom.pau.pauSite</evaluator>
+				<!-- Se comenta este evaluador ya que no comprueba de manera recursiva hacie arriba. 
+				Es decir, sólo es verdadero en el caso en que el nodo sea hijo directo de un contenedor de PAUs				
+				<evaluator>evaluator.fom.pau.contenedorPAUs</evaluator> 
+				-->
+				<permissions>
+					<permission allow="true">Write</permission>
+				</permissions>
+				<param name="successMessage">message.add_registradounico.success</param>
+				<param name="failureMessage">message.add_registradounico.failure</param>
+			</action>
+			
+			<!-- Envio del documento por mail -->
+			<action id="sendDocumentByMail_Action" type="javascript" label="actions.pau.senddocumentbymail">
+				<param name="function">onActionFormDialog</param>
+				<param name="itemKind">action</param>
+				<param name="itemId">sendDocumentByMail_Action</param>
+				<param name="mode">create</param>
+				<param name="destination">{node.nodeRef}</param>
+<!-- 				<evaluator negate="true">evaluator.fom.pau.registradoUnicoAspecto</evaluator> -->
+<!-- 				<evaluator>evaluator.fom.pau.pauSite</evaluator> -->
+				<!-- Se comenta este evaluador ya que no comprueba de manera recursiva hacie arriba. 
+				Es decir, sólo es verdadero en el caso en que el nodo sea hijo directo de un contenedor de PAUs				
+				<evaluator>evaluator.fom.pau.contenedorPAUs</evaluator> 
+				-->
+<!-- 				<permissions> -->
+<!-- 					<permission allow="true">Write</permission> -->
+<!-- 				</permissions> -->
+				<param name="successMessage">message.senddocumentbymail.success</param>
+				<param name="failureMessage">message.senddocumentbymail.failure</param>
+			</action>
 		</actions>
+		
 
 		<actionGroups>
+			<actionGroup id="document-browse">
+				<action index="500" id="addRegistradoUnico_Dialog" />
+				<action index="501" id="sendDocumentByMail_Action" />
+			</actionGroup>"
+			
 			<actionGroup id="folder-browse">
-				<action index="500" id="createPAU" />
+<!-- 				<action index="500" id="createPAU" /> -->
 				<action index="501" id="createPAU_Dialog" />
 			</actionGroup>
 		</actionGroups>

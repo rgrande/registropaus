@@ -21,12 +21,12 @@
     <bean id="registropaus-repo_dictionaryBootstrap" parent="dictionaryModelBootstrap" depends-on="dictionaryBootstrap">
         <property name="models">
             <list>
-                <value>alfresco/module/${project.artifactId}/model/pauModel.xml</value>
+                <value>alfresco/module/registropaus-repo/model/pauModel.xml</value>
             </list>
         </property>
         <property name="labels">
             <list>
-                <value>alfresco/module/${project.artifactId}/messages/pauModel</value>
+                <value>alfresco/module/registropaus-repo/messages/pauModel</value>
             </list>        
         </property>
     </bean>
@@ -45,6 +45,24 @@
     <bean id="createPAU_Dialogo_Action" class="es.jccm.alf.fom.action.createPAU_Dialog" parent="action-executer" >
     	<property name="nodeService">
     		<ref bean="NodeService"/>
+    	</property>
+    </bean>
+    
+    <bean id="addRegistradoUnico_Dialogo_Action" class="es.jccm.alf.fom.action.AddRegistradoUnico_Dialogo_Action" parent="action-executer" >
+    	<property name="nodeService">
+    		<ref bean="NodeService"/>
+    	</property>
+    </bean>
+    
+    <bean id="sendDocumentByMail_Action" class="es.jccm.alf.fom.action.sendDocumentByMail" parent="action-executer" >
+    	<property name="nodeService">
+    		<ref bean="NodeService"/>
+    	</property>
+    	<property name="contentService">
+    		<ref bean="ContentService"/>
+    	</property>
+    	<property name="globalproperties">
+    		<ref bean="global-properties"/>
     	</property>
     </bean>
     
@@ -68,7 +86,7 @@
     <bean id="registropaus-repo_actionsResourceBundles" parent="actionResourceBundles" >
     	<property name="resourceBundles">
     		<list>
-    			<value>alfresco.module.${project.artifactId}.messages.actions</value>
+    			<value>alfresco.module.registropaus-repo.messages.actions</value>
     		</list>
     	</property>
     </bean>

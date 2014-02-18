@@ -11,7 +11,7 @@ public interface pauModel {
 	public static final String TYPE_PAU_ASIENTOREGISTRAL = "asientoRegistral";
 	
     // Aspects
-    public static final String ASPECT_PAU_REGISTROUNICO = "registroUnico";
+    public static final String ASPECT_PAU_REGISTROUNICO = "registradoUnico";
     public static final String ASPECT_PAU_PUBLICADODOCM = "publicadoDOCM";
     public static final String ASPECT_PAU_TIPODOCUMENTOPAU = "tipoDocumentoPAU";
     public static final String ASPECT_PAU_ORIGENDOCUMENTO = "origenDocumento";    
@@ -20,6 +20,7 @@ public interface pauModel {
 	
     
     // Properties
+    //Tipo: PAU
     public static final String PROP_NAME = "name";
 	public static final String PROP_NUMERO = "numeroPAU";
 	public static final String PROP_LOCALIDAD = "localidadPAU";
@@ -27,7 +28,12 @@ public interface pauModel {
 	public static final String PROP_USO = "uso";
 	public static final String PROP_NUMEROVIVIENDAS = "numeroViviendas";
 	
+	//Tipo: asientoRegistral
 	public static final String PROP_RESUMENASIENTO = "resumenAsiento";
+	
+	//Aspecto: registradoUnico
+	public static final String PROP_NUMREGISTRO = "numRegistro";
+	public static final String PROP_FECHAREGISTRO = "fechaRegistro";
     
     // Associations
 //    public static final String ASSN_ = "";
