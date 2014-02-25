@@ -46,18 +46,35 @@ public class createPAU_Dialog extends ActionExecuterAbstractBase {
 		// Se crea un mapa que contiene las propiedades del nodo
 		Map<QName, Serializable> props = new HashMap<QName, Serializable>(1);
 		// cm:name	
-		props.put(QName.createQName(NamespaceService.CONTENT_MODEL_1_0_URI,
-				"name"), (String) accion
-				.getParameterValue(PARAM_CREATEPAU_NOMBRE));
-
+		props.put(QName.createQName(NamespaceService.CONTENT_MODEL_1_0_URI,	"name"), 
+				(String) accion.getParameterValue(PARAM_CREATEPAU_NOMBRE));
+		// pau:numeroPAU
+		props.put(QName.createQName(pauModel.NAMESPACE_PAU_CONTENT_MODEL,pauModel.PROP_NUMERO), 
+				(Integer) accion.getParameterValue(PARAM_CREATEPAU_NUMERO));
+		// pau:localidad
+		props.put(QName.createQName(pauModel.NAMESPACE_PAU_CONTENT_MODEL,pauModel.PROP_LOCALIDAD), 
+				(String) accion.getParameterValue(PARAM_CREATEPAU_LOCALIDAD));
+		// pau:superficie
+		props.put(QName.createQName(pauModel.NAMESPACE_PAU_CONTENT_MODEL,pauModel.PROP_SUPERFICIE), 
+				(Float) accion.getParameterValue(PARAM_CREATEPAU_SUPERFICIE));
+		// pau:uso
+		props.put(QName.createQName(pauModel.NAMESPACE_PAU_CONTENT_MODEL,pauModel.PROP_USO), 
+				(String) accion.getParameterValue(PARAM_CREATEPAU_USO));
+		// pau:numeroViviendas
+		props.put(QName.createQName(pauModel.NAMESPACE_PAU_CONTENT_MODEL,pauModel.PROP_NUMEROVIVIENDAS), 
+				(Integer) accion.getParameterValue(PARAM_CREATEPAU_NUMEROVIVIENDAS));
+		//pau:estado
+		props.put(QName.createQName(pauModel.NAMESPACE_PAU_CONTENT_MODEL,pauModel.PROP_ESTADO), 
+				(String)"Inicio");
+		
+		
 		// Se crea el nodo
 		NodeRef node = this.nodeService.createNode(
 				nodoOrigen,
 				ContentModel.ASSOC_CONTAINS,
-				QName.createQName(NamespaceService.CONTENT_MODEL_1_0_URI,
-				(String) accion.getParameterValue(PARAM_CREATEPAU_NOMBRE)),
-				QName.createQName(pauModel.NAMESPACE_PAU_CONTENT_MODEL,
-				pauModel.TYPE_PAU_PAU), props).getChildRef();
+				QName.createQName(NamespaceService.CONTENT_MODEL_1_0_URI,(String) accion.getParameterValue(PARAM_CREATEPAU_NOMBRE)),
+				QName.createQName(pauModel.NAMESPACE_PAU_CONTENT_MODEL,pauModel.TYPE_PAU_PAU), 
+				props).getChildRef();
 
 		
 		Map<QName, Serializable> props_titled = new HashMap<QName, Serializable>(1);
@@ -76,10 +93,12 @@ public class createPAU_Dialog extends ActionExecuterAbstractBase {
 	@Override
 	protected void addParameterDefinitions(List<ParameterDefinition> paramList) {
 
+		logger.info("Llamada a addParameterDefinitions");
+		
 		paramList.add(new ParameterDefinitionImpl(PARAM_CREATEPAU_NOMBRE,
 				DataTypeDefinition.TEXT, true,
 				getParamDisplayLabel(PARAM_CREATEPAU_NOMBRE)));
-
+		
 		paramList.add(new ParameterDefinitionImpl(PARAM_CREATEPAU_DESCRIPCION,
 				DataTypeDefinition.TEXT, false,
 				getParamDisplayLabel(PARAM_CREATEPAU_DESCRIPCION)));
@@ -89,27 +108,38 @@ public class createPAU_Dialog extends ActionExecuterAbstractBase {
  * TODO: Mirar por qué ocurre esto
  * 
  */
-//		paramList.add(new ParameterDefinitionImpl(PARAM_CREATEPAU_NUMERO,
-//				DataTypeDefinition.INT, false,
-//				getParamDisplayLabel(PARAM_CREATEPAU_NUMERO)));
-//
-//		paramList.add(new ParameterDefinitionImpl(PARAM_CREATEPAU_LOCALIDAD,
-//				DataTypeDefinition.TEXT, false,
-//				getParamDisplayLabel(PARAM_CREATEPAU_LOCALIDAD)));
-//
-//		paramList.add(new ParameterDefinitionImpl(PARAM_CREATEPAU_SUPERFICIE,
-//				DataTypeDefinition.FLOAT, false,
-//				getParamDisplayLabel(PARAM_CREATEPAU_SUPERFICIE)));
-//
-//		paramList.add(new ParameterDefinitionImpl(PARAM_CREATEPAU_USO,
-//				DataTypeDefinition.TEXT, false,
-//				getParamDisplayLabel(PARAM_CREATEPAU_USO)));
-//
-//		paramList.add(new ParameterDefinitionImpl(
-//				PARAM_CREATEPAU_NUMEROVIVIENDAS, DataTypeDefinition.INT, false,
-//				getParamDisplayLabel(PARAM_CREATEPAU_NUMEROVIVIENDAS)));
+		paramList.add(new ParameterDefinitionImpl(PARAM_CREATEPAU_NUMERO,
+				DataTypeDefinition.INT, false,
+				getParamDisplayLabel(PARAM_CREATEPAU_NUMERO)));
 
+		paramList.add(new ParameterDefinitionImpl(PARAM_CREATEPAU_LOCALIDAD,
+				DataTypeDefinition.TEXT, false,
+				getParamDisplayLabel(PARAM_CREATEPAU_LOCALIDAD)));
+
+		paramList.add(new ParameterDefinitionImpl(PARAM_CREATEPAU_SUPERFICIE,
+				DataTypeDefinition.FLOAT, false,
+				getParamDisplayLabel(PARAM_CREATEPAU_SUPERFICIE)));
+
+		paramList.add(new ParameterDefinitionImpl(PARAM_CREATEPAU_USO,
+				DataTypeDefinition.TEXT, false,
+				getParamDisplayLabel(PARAM_CREATEPAU_USO)));
+
+		paramList.add(new ParameterDefinitionImpl(PARAM_CREATEPAU_NUMEROVIVIENDAS, 
+				DataTypeDefinition.INT, false,
+				getParamDisplayLabel(PARAM_CREATEPAU_NUMEROVIVIENDAS)));
+
+		logger.info("FIN Llamada a addParameterDefinitions");
+		
 	}
+	
+	/**
+	 * Retorna el valor en caso en que sea distinto de nulo
+	 */
+	private Serializable getIfNotNull(Serializable value) {
+		return null;
+	}
+	
+	
 
 	/**
 	 * @param nodeService

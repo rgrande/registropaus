@@ -35,25 +35,28 @@
     <!-- 
     ACTIONS
      -->
-    <!-- Acciones para crear un nodo PAU -->
+    <!-- Creación de un nodo PAU -->
     <bean id="createPAU_Action" class="es.jccm.alf.fom.action.createPAU" parent="action-executer" >
     	<property name="nodeService">
     		<ref bean="NodeService"/>
     	</property>
     </bean>
     
+    <!-- Creación de un nodo PAU con formulario-->
     <bean id="createPAU_Dialogo_Action" class="es.jccm.alf.fom.action.createPAU_Dialog" parent="action-executer" >
     	<property name="nodeService">
     		<ref bean="NodeService"/>
     	</property>
     </bean>
     
+    <!-- Añadir aspecto registradoUnico -->
     <bean id="addRegistradoUnico_Dialogo_Action" class="es.jccm.alf.fom.action.AddRegistradoUnico_Dialogo_Action" parent="action-executer" >
     	<property name="nodeService">
     		<ref bean="NodeService"/>
     	</property>
     </bean>
     
+    <!-- Enviar documento por email -->
     <bean id="sendDocumentByMail_Action" class="es.jccm.alf.fom.action.sendDocumentByMail" parent="action-executer" >
     	<property name="nodeService">
     		<ref bean="NodeService"/>
@@ -63,6 +66,36 @@
     	</property>
     	<property name="globalproperties">
     		<ref bean="global-properties"/>
+    	</property>
+    	<property name="mailAction">
+    		<ref bean="mail"/>
+    	</property>
+    </bean>
+    
+    <!-- Añadir aspecto publicadoWeb -->
+    <bean id="addPublicadoWeb_Action" class="es.jccm.alf.fom.action.PublicadoWebAction" parent="action-executer" >
+    	<property name="nodeService">
+    		<ref bean="NodeService"/>
+    	</property>
+    	<property name="operation">
+    		<value>add</value>
+    	</property>
+    </bean>
+    
+    <!-- Eliminar aspecto publicadoWeb -->
+    <bean id="removePublicadoWeb_Action" class="es.jccm.alf.fom.action.PublicadoWebAction" parent="action-executer" >
+    	<property name="nodeService">
+    		<ref bean="NodeService"/>
+    	</property>
+    	<property name="operation">
+    		<value>remove</value>
+    	</property>
+    </bean>
+    
+    <!-- Control de visibilidad de grupos de SSPP -->
+    <bean id="permisosGrupos_Action" class="es.jccm.alf.fom.action.PermisosGruposAction" parent="action-executer" >
+    	<property name="permissionService">
+    		<ref bean="permissionService"/>
     	</property>
     </bean>
     

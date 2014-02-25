@@ -239,6 +239,16 @@
 		</property>
 	</bean>
 	
+	<!-- Tipo: content e hijos-->
+	<bean id="evaluator.fom.pau.content" parent="evaluator.doclib.action.nodeType">
+		<property name="types">
+			<list>
+				<value>cm:content</value>
+			</list>
+		</property>
+		<property name="allowSubtypes"><value>true</value></property>
+	</bean>
+	
 	<!-- Tipo: PAU -->
 	<bean id="evaluator.fom.pau.PAUType" parent="evaluator.doclib.action.nodeType">
 		<property name="types">
@@ -267,6 +277,7 @@
 		<property name="resourceBundles">
 			<list>
 				<value>alfresco.messages.acciones</value>
+				<value>alfresco.messages.busqueda</value>
 			</list>
 		</property>
 	</bean>

@@ -1,6 +1,22 @@
 <alfresco-config>
 
 	<!-- 
+	****
+	Configuración del formulario de búsqueda avanzada
+	****
+	 -->
+	<config replace="true" evaluator="string-compare" condition="AdvancedSearch">
+      <advanced-search>
+         <!-- Forms for the advanced search type list -->
+         <forms>
+			<form labelId="search.form.label.pau_pau" descriptionId="search.form.desc.pau_pau">pau:PAU</form>
+            <form labelId="search.form.label.cm_content" descriptionId="search.form.desc.cm_content">cm:content</form>
+            <form labelId="search.form.label.cm_folder" descriptionId="search.form.desc.cm_folder">cm:folder</form>
+         </forms>
+      </advanced-search>
+   </config>
+
+	<!-- 
 	**** 
 	creación de nuevos tipos desde la librería de documentos. 
 	**** 
@@ -8,13 +24,13 @@
 	<config evaluator="string-compare" condition="DocumentLibrary">
 		<create-content>
 			<content id="plain-text" mimetype="text/plain" label="Registro PAUs"
-				itemid="pau:contenedorPAUs" icon="folder" />
+				itemid="pau:contenedorPAUs" icon="registro-paus" />
 			<content id="plain-text" mimetype="text/plain" label="PAU"
-				itemid="pau:PAU" icon="folder" />
+				itemid="pau:PAU" icon="pau" />
 			<content id="plain-text" mimetype="text/plain" label="Libro de Registro"
-				itemid="pau:contenedorAsientos" icon="folder" />
+				itemid="pau:contenedorAsientos" icon="libro-registro" />
 			<content id="plain-text" mimetype="text/plain" label="Asiento Registral"
-				itemid="pau:asientoRegistral" icon="folder" />
+				itemid="pau:asientoRegistral" icon="asiento-registral" />
 		</create-content>
 	</config>
 
@@ -27,6 +43,28 @@
 	<!-- Para nodos nuevos -->
 	<config evaluator="model-type" condition="pau:PAU">
 		<forms>
+			<form id="search">
+				<field-visibility>
+					<show id="cm:name" />
+					<show id="cm:title" force="true" />
+					<show id="pau:estado" />
+					<show id="pau:numeroPAU" />
+					<show id="pau:localidadPAU" />
+					<show id="pau:uso" />
+				</field-visibility>
+				<appearance>
+					<field id="cm:name" label="Nombre" />
+					<field id="cm:title" label="Denominación" description="Denominación del PAU" />
+					<field id="pau:estado" label="Estado" />
+
+					<set id="datos1" appearance="bordered-panel" label="Datos"
+						template="/org/alfresco/components/form/2-column-set.ftl" />
+					<field id="pau:numeroPAU" label="Número de PAU" set="datos1" />
+					<field id="pau:localidadPAU" label="Localidad" set="datos1" />
+					<field id="pau:uso" label="Uso" set="datos1" />
+				</appearance>
+			</form>
+		
 			<form>
 				<field-visibility>
 					<show id="cm:name" />
@@ -219,10 +257,24 @@
 				<field-visibility>
 					<show id="nombrePAU" />
 					<show id="descripcion" />
+					<show id="numeroPAU" />
+					<show id="localidad" />
+					<show id="superficie" />
+					<show id="uso" />
+					<show id="numeroViviendas" />
 				</field-visibility>
 				<appearance>
 					<field id="nombrePAU" label="Nombre" />
 					<field id="descripcion" label="Denominación" description="Denominación del PAU" />
+					<field id="numeroPAU" label="numeroPAU" />
+					<field id="localidad" label="localidad" />
+					<field id="superficie" label="superficie" />
+					<field id="uso" label="uso">
+						<control template="/org/alfresco/components/form/controls/selectone.ftl">
+                  			<control-param name="options">Residencial|Residencial,Industrial|Industrial,Terciario|Terciario,Agricola|Agricola</control-param>
+               			</control>
+					</field>
+					<field id="numeroViviendas" label="numeroViviendas" />
 				</appearance>
 			</form>
 		</forms>
@@ -265,6 +317,67 @@
 			</form>
 		</forms>
 	</config>
+				
+	<!-- Formulario acción de añadir publicadoWeb -->
+	<config evaluator="string-compare" condition="addPublicadoWeb_Action">
+		<forms>
+			<form>
+				<field-visibility>
+					<show id="fechaFin" />
+				</field-visibility>
+				<appearance>
+					<field id="fechaFin" label="Fecha de vigencia">
+						<control template="/org/alfresco/components/form/controls/date.ftl">
+                  			<control-param name="showTime">true</control-param>
+                  			<control-param name="forceEditable">true</control-param>
+               			</control>
+					</field>
+				</appearance>
+			</form>
+		</forms>
+	</config>
+	
+	<!-- Formulario para el control de permisos de grupos -->
+	<config evaluator="string-compare" condition="permisosGrupos_Action">
+		<forms>
+			<form>
+				<field-visibility>
+					<show id="permisoAB" />
+					<show id="permisoCR" />
+					<show id="permisoCU" />
+					<show id="permisoGU" />
+					<show id="permisoTO" />
+				</field-visibility>
+				<appearance>
+					<field id="permisoAB" label="Visible en SSPP Albacete">
+						<control template="/org/alfresco/components/form/controls/checkbox.ftl">
+                  			<control-param name="forceEditable">true</control-param>
+               			</control>
+					</field>
+					<field id="permisoCR" label="Visible en SSPP Ciudad Real">
+						<control template="/org/alfresco/components/form/controls/checkbox.ftl">
+                  			<control-param name="forceEditable">true</control-param>
+               			</control>
+					</field>
+					<field id="permisoCU" label="Visible en SSPP Cuenca">
+						<control template="/org/alfresco/components/form/controls/checkbox.ftl">
+                  			<control-param name="forceEditable">true</control-param>
+               			</control>
+					</field>
+					<field id="permisoGU" label="Visible en SSPP Guadalajara">
+						<control template="/org/alfresco/components/form/controls/checkbox.ftl">
+                  			<control-param name="forceEditable">true</control-param>
+               			</control>
+					</field>
+					<field id="permisoTO" label="Visible en SSPP Toledo">
+						<control template="/org/alfresco/components/form/controls/checkbox.ftl">
+                  			<control-param name="forceEditable">true</control-param>
+               			</control>
+					</field>
+				</appearance>
+			</form>
+		</forms>
+	</config>
 
 	<!-- 
 	**** 
@@ -286,7 +399,7 @@
 
 			<!-- Creación de un PAU con diálogo ver: http://ecmstuff.blogspot.com.es/2012/04/adding-document-library-actions-in.html 
 				http://www.slideshare.net/alfresco/alfresco-tech-talk-live-share-extensibility-metadata-and-actions-for-41 -->
-			<action id="createPAU_Dialog" type="javascript" label="actions.pau.createpau">
+			<action id="createPAU_Dialog" type="javascript" label="actions.pau.createpau" icon="pau">
 				<param name="function">onActionFormDialog</param>
 				<param name="itemKind">action</param>
 				<param name="itemId">createPAU_Dialogo_Action</param>
@@ -301,7 +414,7 @@
 			</action>
 			
 			<!-- Añadir el aspecto registradoUnico mediante una acción de diálogo -->			
-			<action id="addRegistradoUnico_Dialog" type="javascript" label="actions.pau.add_registradounico">
+			<action id="addRegistradoUnico_Dialog" type="javascript" label="actions.pau.add_registradounico" icon="registrado">
 				<param name="function">onActionFormDialog</param>
 				<param name="itemKind">action</param>
 				<param name="itemId">addRegistradoUnico_Dialogo_Action</param>
@@ -321,23 +434,54 @@
 			</action>
 			
 			<!-- Envio del documento por mail -->
-			<action id="sendDocumentByMail_Action" type="javascript" label="actions.pau.senddocumentbymail">
+			<action id="sendDocumentByMail_Action" type="javascript" label="actions.pau.senddocumentbymail" icon="mail">
 				<param name="function">onActionFormDialog</param>
 				<param name="itemKind">action</param>
 				<param name="itemId">sendDocumentByMail_Action</param>
 				<param name="mode">create</param>
 				<param name="destination">{node.nodeRef}</param>
-<!-- 				<evaluator negate="true">evaluator.fom.pau.registradoUnicoAspecto</evaluator> -->
-<!-- 				<evaluator>evaluator.fom.pau.pauSite</evaluator> -->
-				<!-- Se comenta este evaluador ya que no comprueba de manera recursiva hacie arriba. 
-				Es decir, sólo es verdadero en el caso en que el nodo sea hijo directo de un contenedor de PAUs				
-				<evaluator>evaluator.fom.pau.contenedorPAUs</evaluator> 
-				-->
-<!-- 				<permissions> -->
-<!-- 					<permission allow="true">Write</permission> -->
-<!-- 				</permissions> -->
+ 				<evaluator>evaluator.fom.pau.content</evaluator>
+				<evaluator>evaluator.fom.pau.pauSite</evaluator>
 				<param name="successMessage">message.senddocumentbymail.success</param>
 				<param name="failureMessage">message.senddocumentbymail.failure</param>
+			</action>
+			
+			<!-- Acción de añadir aspecto publicadoWeb -->
+			<action id="addPublicadoWeb_Action" type="javascript" label="actions.pau.addpublicadoweb" icon="publicado-web">
+				<param name="function">onActionFormDialog</param>
+				<param name="itemKind">action</param>
+				<param name="itemId">addPublicadoWeb_Action</param>
+				<param name="mode">create</param>
+				<param name="destination">{node.nodeRef}</param>
+ 				<evaluator>evaluator.fom.pau.content</evaluator>
+				<evaluator>evaluator.fom.pau.pauSite</evaluator>
+				<evaluator negate="true">evaluator.fom.pau.publicadoWebAspecto</evaluator>
+				<param name="successMessage">message.addpublicadoweb.success</param>
+				<param name="failureMessage">message.addpublicadoweb.failure</param>
+			</action>
+			
+			<!-- Acción de eliminar aspecto publicadoWeb -->
+			<action id="removePublicadoWeb_Action" type="javascript" label="actions.pau.removepublicadoweb" icon="despublicado-web">
+				<param name="function">onActionSimpleRepoAction</param>
+				<param name="action">removePublicadoWeb_Action</param>
+ 				<evaluator>evaluator.fom.pau.content</evaluator>
+				<evaluator>evaluator.fom.pau.pauSite</evaluator>
+				<evaluator>evaluator.fom.pau.publicadoWebAspecto</evaluator>
+				<param name="successMessage">message.removepublicadoweb.success</param>
+				<param name="failureMessage">message.removepublicadoweb.failure</param>
+			</action>
+			
+			<!-- Acción para control de permisos a grupos -->
+			<action id="permisosGrupos_Action" type="javascript" label="actions.pau.permisosGrupos" icon="permisos-grupos">
+				<param name="function">onActionFormDialog</param>
+				<param name="itemKind">action</param>
+				<param name="itemId">permisosGrupos_Action</param>
+				<param name="mode">create</param>
+				<param name="destination">{node.nodeRef}</param>
+ 				<evaluator>evaluator.fom.pau.PAUType</evaluator>
+				<evaluator>evaluator.fom.pau.pauSite</evaluator>
+				<param name="successMessage">message.permisosgrupos.success</param>
+				<param name="failureMessage">message.permisosgrupos.failure</param>
 			</action>
 		</actions>
 		
@@ -346,11 +490,14 @@
 			<actionGroup id="document-browse">
 				<action index="500" id="addRegistradoUnico_Dialog" />
 				<action index="501" id="sendDocumentByMail_Action" />
+				<action index="502" id="addPublicadoWeb_Action" />
+				<action index="502" id="removePublicadoWeb_Action" />
 			</actionGroup>"
 			
 			<actionGroup id="folder-browse">
 <!-- 				<action index="500" id="createPAU" /> -->
 				<action index="501" id="createPAU_Dialog" />
+				<action index="502" id="permisosGrupos_Action" />
 			</actionGroup>
 		</actionGroups>
 	</config>
@@ -365,12 +512,39 @@
 		<metadata-templates>
 			<template id="asientosRegistrales">
 				<evaluator>evaluator.fom.pau.asientoRegistralType</evaluator>
-				<line index="10" id="fechaAsiento">{pau_fechaAsiento}</line>
-				<line index="20" id="tipoAsiento">{pau_tipoAsiento}</line>
-				<line index="30" id="Texto">{pau_resumenAsiento}</line>
+				<line index="10" id="fechaAsiento">{pau_fechaAsiento Fecha}</line>
+				<line index="20" id="tipoAsiento">{pau_tipoAsiento Tipo}</line>
+				<line index="30" id="Texto">{pau_resumenAsiento Resumen}</line>
+			</template>
+			
+			<template id="paus">
+				<evaluator>evaluator.fom.pau.PAUType</evaluator>
+				<line index="10" id="title">{title Descr.}</line>
+				<line index="20" id="numeroPAU">{pau_numeroPAU Numero}</line>
+				<line index="30" id="Localidad">{pau_localidadPAU Localidad}</line>
 			</template>
 
 		</metadata-templates>
+	</config>
+	
+	<!-- 
+	**** 
+	INDICADORES DE ESTADO (StatusIndicators) 
+	**** 
+	-->
+	<config evaluator="string-compare" condition="DocumentLibrary">
+	
+		<indicators>
+			<!-- registrado -->
+			<indicator id="indicator.fom.pau.registradoUnicoAspecto" icon="registrado-16.png">
+				<evaluator>evaluator.fom.pau.registradoUnicoAspecto</evaluator>
+			</indicator>
+			
+			<!-- Publicado web -->
+			<indicator id="indicator.fom.pau.publicadoWebAspecto" icon="publicado-web-16.png">
+				<evaluator>evaluator.fom.pau.publicadoWebAspecto</evaluator>
+			</indicator>
+		</indicators>
 	</config>
 
 </alfresco-config>

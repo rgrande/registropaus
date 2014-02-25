@@ -27,6 +27,7 @@ public interface pauModel {
 	public static final String PROP_SUPERFICIE = "superficie";
 	public static final String PROP_USO = "uso";
 	public static final String PROP_NUMEROVIVIENDAS = "numeroViviendas";
+	public static final String PROP_ESTADO = "estado";
 	
 	//Tipo: asientoRegistral
 	public static final String PROP_RESUMENASIENTO = "resumenAsiento";
@@ -34,6 +35,9 @@ public interface pauModel {
 	//Aspecto: registradoUnico
 	public static final String PROP_NUMREGISTRO = "numRegistro";
 	public static final String PROP_FECHAREGISTRO = "fechaRegistro";
+	
+	//Aspecto: publicadoWeb
+	public static final String PROP_FECHAFIN = "fechaFin";
     
     // Associations
 //    public static final String ASSN_ = "";
