@@ -115,6 +115,32 @@
     	</property>
     </bean>
     
+	<bean id="onCreateNode_PAU" class="org.alfresco.repo.policy.registration.ClassPolicyRegistration" parent="policyRegistration">
+		<property name="policyName">
+			<value>{http://www.alfresco.org}onCreateNode</value>
+		</property>
+		<property name="className">
+			<value>{http://www.pau.com/model/content/1.0}PAU</value>
+		</property>
+		<property name="behaviour">
+			<bean class="org.alfresco.repo.jscript.ScriptBehaviour" parent="scriptBehaviour">
+				<!-- <property name="notificationFrequency"> -->
+				<!-- <value>TRANSACTION_COMMIT</value> -->
+				<!-- </property> -->
+				<property name="location">
+					<bean class="org.alfresco.repo.jscript.ClasspathScriptLocation">
+						<constructor-arg>
+							<value>alfresco/module/registropaus-repo/scripts/nuevoPAU.js</value>
+						</constructor-arg>
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>
+    
+    <!-- 
+    MENSAJES
+     -->
     <!-- Mensajes relacionados con la acción -->
     <bean id="registropaus-repo_actionsResourceBundles" parent="actionResourceBundles" >
     	<property name="resourceBundles">
@@ -124,5 +150,6 @@
     	</property>
     </bean>
     
+      
     
 </beans>
