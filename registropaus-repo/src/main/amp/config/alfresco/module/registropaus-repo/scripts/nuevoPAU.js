@@ -26,15 +26,16 @@ var templates = search.luceneSearch('PATH:"/app:company_home/app:dictionary/app:
 
 //if (docLib) {
 
-	var tecoremtemp = templates[0];
+	var pautemp = templates[0];
 
 	// var child = templates.children[0];
 
-	logger.log("Plantilla encontrada:"+tecoremtemp.children[0].name);
+if(pautemp) {
+	logger.log("Plantilla encontrada:"+pautemp.children[0].name);
 
-	for (t in tecoremtemp.children) {
-		logger.log("-" + tecoremtemp.children[t].name);
-		var plant = tecoremtemp.children[t];
+	for (t in pautemp.children) {
+		logger.log("-" + pautemp.children[t].name);
+		var plant = pautemp.children[t];
 
 		plant.copy(pau, true);
 
@@ -43,5 +44,5 @@ var templates = search.luceneSearch('PATH:"/app:company_home/app:dictionary/app:
 		}
 
 	}
-
+}
 //} // end if

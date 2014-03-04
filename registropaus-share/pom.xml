@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>es.jccm.alf.fom</groupId>
     <artifactId>registropaus-share</artifactId>
-    <version>0.1</version>
+    <version>0.2</version>
     <name>registropaus-share AMP project</name>
     <packaging>amp</packaging>
     <description>Manages the lifecycle of the registropaus-share AMP (Alfresco Module Package)</description>
