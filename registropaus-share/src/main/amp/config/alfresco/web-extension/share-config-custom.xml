@@ -495,6 +495,13 @@
 			</actionGroup>"
 			
 			<actionGroup id="folder-browse">
+				<action index="100" id="folder-download"/>
+				<action index="105" id="folder-view-details">
+					<evaluator>evaluator.fom.pau.folder</evaluator>
+				</action>
+				<action index="110" id="document-edit-properties">
+					<evaluator>evaluator.doclib.action.disableAction</evaluator>
+				</action>
 <!-- 				<action index="500" id="createPAU" /> -->
 				<action index="501" id="createPAU_Dialog" />
 				<action index="502" id="permisosGrupos_Action" />

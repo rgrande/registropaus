@@ -239,6 +239,16 @@
 		</property>
 	</bean>
 	
+	<!-- Tipo: folder (sin hijos)-->
+	<bean id="evaluator.fom.pau.folder" parent="evaluator.doclib.action.nodeType">
+		<property name="types">
+			<list>
+				<value>cm:folder</value>
+			</list>
+		</property>
+		<property name="allowSubtypes"><value>false</value></property>
+	</bean>
+	
 	<!-- Tipo: content e hijos-->
 	<bean id="evaluator.fom.pau.content" parent="evaluator.doclib.action.nodeType">
 		<property name="types">
