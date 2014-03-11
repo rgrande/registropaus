@@ -183,6 +183,7 @@
 				</property>
 				<property name="pau:tipoAsiento">
 					<type>d:text</type>
+					<default>Inscripción</default>
 					<constraints>
 						<constraint ref="pau:tiposAsientosLista" />
 					</constraints>

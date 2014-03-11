@@ -38,7 +38,6 @@ public class resumenAsientoRegistro implements OnUpdateNodePolicy {
 		
 		//Creación de behaviours
 		this.onUpdateNode = new JavaBehaviour(this,"onUpdateNode", NotificationFrequency.TRANSACTION_COMMIT);
-//		this.onUpdateNode = new JavaBehaviour(this,"onUpdateNode");
 
 		
 		this.policyComponent.bindClassBehaviour(
@@ -62,8 +61,6 @@ public class resumenAsientoRegistro implements OnUpdateNodePolicy {
 		if(cr!=null) {
 			log.info(">>>>>>>>>>> Content Reader"+cr.toString());
 			String content = cr.getContentString();
-			
-	//		String content = (String) props.get(QName.createQName(NamespaceService.CONTENT_MODEL_1_0_URI,"content"));
 			
 			log.info(">>>>>>>>>>> Contenido de content: "+content.toString());
 			

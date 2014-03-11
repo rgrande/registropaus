@@ -77,13 +77,19 @@ public class createPAU_Dialog extends ActionExecuterAbstractBase {
 				props).getChildRef();
 
 		
+		//Aspecto cm:title
 		Map<QName, Serializable> props_titled = new HashMap<QName, Serializable>(1);
-		//cm:title
-		props_titled.put(QName.createQName(NamespaceService.CONTENT_MODEL_1_0_URI,
-				"title"), (String) accion
-				.getParameterValue(PARAM_CREATEPAU_DESCRIPCION));
-		//Añadir el aspecto cm:titled con la propiedad cm:title rellena
+
+		props_titled.put(
+				QName.createQName(NamespaceService.CONTENT_MODEL_1_0_URI,"title"), 
+				(String) accion.getParameterValue(PARAM_CREATEPAU_DESCRIPCION));
 		this.nodeService.addAspect(node, QName.createQName(NamespaceService.CONTENT_MODEL_1_0_URI,"titled"), props_titled);
+		
+		//Aspecto cm:geographic
+		Map<QName, Serializable> props_geo = new HashMap<QName, Serializable>(1);
+		props_geo.put(QName.createQName(NamespaceService.CONTENT_MODEL_1_0_URI,"latitude"),new Double(39.866667));
+		props_geo.put(QName.createQName(NamespaceService.CONTENT_MODEL_1_0_URI,"longitude"),new Double(-4.033333));
+		this.nodeService.addAspect(node, QName.createQName(NamespaceService.CONTENT_MODEL_1_0_URI,"geographic"), props_geo);
 		
 		//Se retorna el valor del nodeRef
 		accion.setParameterValue(PARAM_RESULT, node);

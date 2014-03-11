@@ -497,11 +497,29 @@
 			<actionGroup id="folder-browse">
 				<action index="100" id="folder-download"/>
 				<action index="105" id="folder-view-details">
-					<evaluator>evaluator.fom.pau.folder</evaluator>
+					<evaluator>evaluator.fom.pau.PAUType</evaluator>
 				</action>
 				<action index="110" id="document-edit-properties">
-					<evaluator>evaluator.doclib.action.disableAction</evaluator>
+					<evaluator>evaluator.fom.pau.PAUType</evaluator>
 				</action>
+				<action index="150" id="document-copy-to" icon="folder-copy-to" label="actions.folder.copy-to">
+					<evaluator>evaluator.fom.pau.folder</evaluator>
+				</action>
+            	<action index="160" id="document-move-to" icon="folder-move-to" label="actions.folder.move-to">
+            		<evaluator>evaluator.fom.pau.folder</evaluator>
+            	</action>
+            	<action index="170" id="folder-manage-rules">
+            		<evaluator>evaluator.fom.pau.folder</evaluator>
+            	</action>
+            	<action index="180" id="document-delete" icon="folder-delete" label="actions.folder.delete">
+            		<evaluator>evaluator.fom.pau.folder</evaluator>
+            	</action>
+            	<action index="190" id="document-manage-granular-permissions" icon="folder-manage-permissions" label="actions.folder.manage-permissions">
+            		<evaluator>evaluator.fom.pau.folder</evaluator>
+            	</action>
+            	<action index="210" id="document-manage-aspects" label="actions.folder.manage-aspects">
+            		<evaluator>evaluator.doclib.action.disableAction</evaluator>
+            	</action>
 <!-- 				<action index="500" id="createPAU" /> -->
 				<action index="501" id="createPAU_Dialog" />
 				<action index="502" id="permisosGrupos_Action" />
