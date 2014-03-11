@@ -39,10 +39,13 @@ if(pautemp) {
  * 
 */
 var libror =  pau.parent.parent.childByNamePath("Libro de Registro");
-var asiento = libror.createNode("Nuevo_PAU_"+pau.name,"pau:asientoRegistral");
-asiento.content = "Inscripción de PAU "+pau.name;
-asiento.properties["pau:tipoAsiento"] = "Inscripción";
-var fecha = new Date();
-asiento.properties["{http://www.pau.com/model/content/1.0}fechaAsiento"] = fecha;
-asiento.createAssociation(pau,"{http://www.pau.com/model/content/1.0}pauAsociadoAsiento");
-asiento.save();
+
+if(libror) {
+	var asiento = libror.createNode("Nuevo_PAU_"+pau.name,"pau:asientoRegistral");
+	asiento.content = "Inscripción de PAU "+pau.name;
+	asiento.properties["pau:tipoAsiento"] = "Inscripción";
+	var fecha = new Date();
+	asiento.properties["{http://www.pau.com/model/content/1.0}fechaAsiento"] = fecha;
+	asiento.createAssociation(pau,"{http://www.pau.com/model/content/1.0}pauAsociadoAsiento");
+	asiento.save();
+}
